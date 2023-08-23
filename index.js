@@ -10,10 +10,7 @@ const contractABI = [
       "type": "function"
     }
   ];
-    /* // Better Alternative for getting the contracts ABI
-  let artifacts = await hre.artifacts.readArtifact("PassCallData");
-  const contractABI = artifacts.abi
-    */
+
 
   const provider = new ethers.providers.AlchemyProvider(
     'goerli',
@@ -35,5 +32,22 @@ const contractABI = [
 
     }
 
-    main();
+    main().catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+    });
 
+
+    /* // Better Alternative for interacting with contract
+    const hre = require("hardhat");
+
+    const CONTRACT_ADDR = "";
+
+    async function main() {
+        // getContractAt gets the ABI and byteCode for the Contract
+        // An instance of the Contract is returned and stored in the contract variable which allows us to interact with the contract
+        const contract = await hre.ethers.getContractAt("Contract", CONTRACT_ADDR);
+
+        await contract.callContractAttempt();
+    }
+    */
